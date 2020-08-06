@@ -71,15 +71,18 @@ for i in range(1,71):
     folders_train += [female, male]
     folders_test += [female, male]
 
+
 # Get face embeddings
 
-batch = 10
+batch = 16
 
 def process_folders_batch(root):
     x = []
     y = []
 
     for folder in os.listdir(root):
+        pdb.set_trace()
+
         if folder[-1] == 'F':
             gender = 0
         else:
@@ -108,11 +111,20 @@ def process_folders_batch(root):
                 embeddings = np.squeeze(K.eval(encodings)).tolist()
 
                 x += embeddings
-                labels = [gender] * batch
+                labels = [gender] * counter
                 y += labels
 
                 counter = 0
                 imgs = None
+
+        if imgs:
+            imgs = preprocess_input(imgs)
+            encodings = vgg_face(imgs)
+            embeddings = np.squeeze(K.eval(encodings)).tolist()
+
+            x += embeddings
+            labels = [gender] * counter
+            y += labels
 
     return x, y
 
@@ -132,17 +144,17 @@ with open('y_test.npy', 'wb') as f:
     np.save(f, y_test)
 
 
-root_train = 'data/combined/aligned'
-x_train, y_train = process_folders_batch(root_train)
+#root_train = 'data/combined/aligned'
+#x_train, y_train = process_folders_batch(root_train)
 
-x_train=np.array(x_train)
-y_train=np.array(y_train)
+#x_train=np.array(x_train)
+#y_train=np.array(y_train)
 
-with open('x_train.npy', 'wb') as f:
-    np.save(f, x_train)
+#with open('x_train.npy', 'wb') as f:
+#    np.save(f, x_train)
 
-with open('y_train.npy', 'wb') as f:
-    np.save(f, y_train)
+#with open('y_train.npy', 'wb') as f:
+#    np.save(f, y_train)
 
 
 
