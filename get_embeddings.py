@@ -85,34 +85,34 @@ def process_folders_batch(folders, root):
         else:
             gender = 1
 
-    folder = root + '/' + folder
-    counter = 0
-    imgs = None
+        folder = root + '/' + folder
+        counter = 0
+        imgs = None
 
-    for filename in os.listdir(folder):
-        file_path = folder + '/' + filename
+        for filename in os.listdir(folder):
+            file_path = folder + '/' + filename
 
-        img = load_img(file_path, target_size=(224,224))
-        img=img_to_array(img)
-        img=np.expand_dims(img,axis=0)
+            img = load_img(file_path, target_size=(224,224))
+            img=img_to_array(img)
+            img=np.expand_dims(img,axis=0)
 
-        if imgs is not None:
-            imgs = np.concatenate((imgs, img), axis=0)
-        else:
-            imgs = img
+            if imgs is not None:
+                imgs = np.concatenate((imgs, img), axis=0)
+            else:
+                imgs = img
 
-        counter += 1
-        if counter % batch == 0:
-            imgs = preprocess_input(imgs)
-            encodings = vgg_face(imgs)
-            embeddings = np.squeeze(K.eval(encodings)).tolist()
+            counter += 1
+            if counter % batch == 0:
+                imgs = preprocess_input(imgs)
+                encodings = vgg_face(imgs)
+                embeddings = np.squeeze(K.eval(encodings)).tolist()
 
-            x += embeddings
-            labels = [gender] * batch
-            y += labels
+                x += embeddings
+                labels = [gender] * batch
+                y += labels
 
-            counter = 0
-            imgs = None
+                counter = 0
+                imgs = None
 
     return x, y
 
