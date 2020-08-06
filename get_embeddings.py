@@ -130,10 +130,10 @@ print(end - start)
 x_train=np.array(x_train)
 y_train=np.array(y_train)
 
-with open('x_train', 'wb') as f:
+with open('x_train.npy', 'wb') as f:
     np.save(f, x_train)
 
-with open('x_train', 'rb') as f:
+with open('x_train.npy', 'rb') as f:
     loaded_x_train = np.load(f)
 
 pdb.set_trace()
