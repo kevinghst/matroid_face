@@ -74,6 +74,32 @@ for i in range(1,71):
 
 # Get face embeddings
 
+
+def process_folders(root):
+    x = []
+    y = []
+    for folder in os.listdir(root):
+        if folder[-1] == 'F':
+            gender = 0
+        else:
+            gender = 1
+
+        folder = root + '/' + folder
+        for filename in os.listdir(folder):
+            file_path = folder + '/' + filename
+            img = load_img(file_path, target_size=(224,224))
+            img=img_to_array(img)
+            img=np.expand_dims(img,axis=0)
+            img=preprocess_input(img)
+            img_encode=vgg_face(img)
+            embedding = np.squeeze(K.eval(img_encode)).tolist()            
+            x.append(embedding)
+            y.append(gender)
+
+    return x, y
+
+
+
 batch = 10
 
 def process_folders_batch(root):
@@ -132,7 +158,7 @@ print("getting test embeddings...")
 start = time.time()
 
 root_test = 'data/combined/valid'
-x_test, y_test = process_folders_batch(root_test)
+x_test, y_test = process_folders(root_test)
 
 x_test=np.array(x_test)
 y_test=np.array(y_test)
