@@ -94,7 +94,7 @@ def process_folders(folders, root, x, y):
       y.append(gender)
 
 folders_train = ['01_F', '01_M']
-root_train = '/combined/aligned'
+root_train = '/data/aligned'
 
 x_train = []
 y_train = []
