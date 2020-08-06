@@ -127,6 +127,15 @@ x_train, y_train = process_folders_batch(folders_train, root_train)
 end = time.time()
 print(end - start)
 
+x_train=np.array(x_train)
+y_train=np.array(y_train)
+
+with open('x_train', 'wb') as f:
+    np.save(f, x_train)
+
+with open('x_train', 'rb') as f:
+    loaded_x_train = np.load(f)
+
 pdb.set_trace()
 
 exit = "exit"
