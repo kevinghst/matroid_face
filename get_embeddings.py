@@ -75,11 +75,11 @@ for i in range(1,71):
 
 batch = 10
 
-def process_folders_batch(folders, root):
+def process_folders_batch(root):
     x = []
     y = []
 
-    for folder in folders:
+    for folder in os.listdir(root):
         if folder[-1] == 'F':
             gender = 0
         else:
@@ -116,16 +116,24 @@ def process_folders_batch(folders, root):
 
     return x, y
 
-folders_train = ['01_F', '02_F']
-root_train = 'data/combined/aligned'
 
-start = time.time()
 print("getting embeddings...")
 
-x_train, y_train = process_folders_batch(folders_train, root_train)
+root_test = 'data/combined/valid'
+x_test, y_test = process_folders_batch(root_test)
 
-end = time.time()
-print(end - start)
+x_test=np.array(x_test)
+y_test=np.array(y_test)
+
+with open('x_test.npy', 'wb') as f:
+    np.save(f, x_test)
+
+with open('y_test.npy', 'wb') as f:
+    np.save(f, y_test)
+
+
+root_train = 'data/combined/aligned'
+x_train, y_train = process_folders_batch(root_train)
 
 x_train=np.array(x_train)
 y_train=np.array(y_train)
@@ -133,9 +141,9 @@ y_train=np.array(y_train)
 with open('x_train.npy', 'wb') as f:
     np.save(f, x_train)
 
-with open('x_train.npy', 'rb') as f:
-    loaded_x_train = np.load(f)
+with open('y_train.npy', 'wb') as f:
+    np.save(f, y_train)
 
-pdb.set_trace()
 
-exit = "exit"
+
+
