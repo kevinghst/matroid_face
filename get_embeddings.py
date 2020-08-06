@@ -122,7 +122,7 @@ root_train = 'data/combined/aligned'
 start = time.time()
 print("getting embeddings...")
 
-x_train, y_train = process_folders(folders_train, root_train)
+x_train, y_train = process_folders_batch(folders_train, root_train)
 
 end = time.time()
 print(end - start)
