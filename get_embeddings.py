@@ -73,38 +73,56 @@ for i in range(1,71):
 
 # Get face embeddings
 
-def get_embedding(file_path):
-  img = load_img(file_path, target_size=(224,224))
-  img=img_to_array(img)
-  img=np.expand_dims(img,axis=0)
-  img=preprocess_input(img)
-  img_encode=vgg_face(img)
-  return np.squeeze(K.eval(img_encode)).tolist()
+batch = 10
 
-def process_folders(folders, root, x, y):
-  for folder in folders:
-    if folder[-1] == 'F':
-      gender = 0
-    else:
-      gender = 1
+def process_folders_batch(folders, root):
+    x = []
+    y = []
+
+    for folder in folders:
+        if folder[-1] == 'F':
+            gender = 0
+        else:
+            gender = 1
 
     folder = root + '/' + folder
+    counter = 0
+    imgs = None
+
     for filename in os.listdir(folder):
-      file_path = folder + '/' + filename
-      embedding = get_embedding(file_path)
-      x.append(embedding)
-      y.append(gender)
+        file_path = folder + '/' + filename
+
+        img = load_img(file_path, target_size=(224,224))
+        img=img_to_array(img)
+        img=np.expand_dims(img,axis=0)
+
+        if imgs is not None:
+            imgs = np.concatenate((imgs, img), axis=0)
+        else:
+            imgs = img
+
+        counter += 1
+        if counter % batch == 0:
+            imgs = preprocess_input(imgs)
+            encodings = vgg_face(imgs)
+            embeddings = np.squeeze(K.eval(encodings)).tolist()
+
+            x += embeddings
+            labels = [gender] * batch
+            y += labels
+
+            counter = 0
+            imgs = None
+
+    return x, y
 
 folders_train = ['01_F']
 root_train = 'data/combined/aligned'
 
-x_train = []
-y_train = []
-
 start = time.time()
 print("getting embeddings...")
 
-process_folders(folders_train, root_train, x_train, y_train)
+x_train, y_train = process_folders(folders_train, root_train)
 
 end = time.time()
 print(end - start)
