@@ -116,7 +116,7 @@ def process_folders_batch(folders, root):
 
     return x, y
 
-folders_train = ['01_F']
+folders_train = ['01_F', '02_F']
 root_train = 'data/combined/aligned'
 
 start = time.time()
