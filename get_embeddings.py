@@ -137,6 +137,8 @@ x_test, y_test = process_folders_batch(root_test)
 x_test=np.array(x_test)
 y_test=np.array(y_test)
 
+pdb.set_trace()
+
 with open('x_test.npy', 'wb') as f:
     np.save(f, x_test)
 
@@ -147,24 +149,24 @@ end = time.time()
 print("test embeddings took:")
 print(end - start)
 
-print("getting train embeddings...")
-start = time.time()
+#print("getting train embeddings...")
+#start = time.time()
 
-root_train = 'data/combined/aligned'
-x_train, y_train = process_folders_batch(root_train)
+#root_train = 'data/combined/aligned'
+#x_train, y_train = process_folders_batch(root_train)
 
-x_train=np.array(x_train)
-y_train=np.array(y_train)
+#x_train=np.array(x_train)
+#y_train=np.array(y_train)
 
-with open('x_train.npy', 'wb') as f:
-    np.save(f, x_train)
+#with open('x_train.npy', 'wb') as f:
+#    np.save(f, x_train)
 
-with open('y_train.npy', 'wb') as f:
-    np.save(f, y_train)
+#with open('y_train.npy', 'wb') as f:
+#    np.save(f, y_train)
 
-end = time.time()
-print("train embeddings took:")
-print(end - start)
+#end = time.time()
+#print("train embeddings took:")
+#print(end - start)
 
 
 
