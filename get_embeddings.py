@@ -12,6 +12,7 @@ from tensorflow.keras.preprocessing.image import load_img,img_to_array
 from tensorflow.keras.applications.imagenet_utils import preprocess_input
 import tensorflow.keras.backend as K
 
+
 #Define VGG_FACE_MODEL architecture
 model = Sequential()
 model.add(ZeroPadding2D((1,1),input_shape=(224,224, 3)))
@@ -70,6 +71,8 @@ for i in range(1,71):
     folders_test += [female, male]
 
 # Get face embeddings
+
+pdb.set_trace()
 
 def get_embedding(file_path):
   img = load_img(file_path, target_size=(224,224))
