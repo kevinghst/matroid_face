@@ -1,5 +1,6 @@
 import pdb
 
+import time
 import os
 import matplotlib.pyplot as plt
 import numpy as np
@@ -72,8 +73,6 @@ for i in range(1,71):
 
 # Get face embeddings
 
-pdb.set_trace()
-
 def get_embedding(file_path):
   img = load_img(file_path, target_size=(224,224))
   img=img_to_array(img)
@@ -96,13 +95,19 @@ def process_folders(folders, root, x, y):
       x.append(embedding)
       y.append(gender)
 
-folders_train = ['01_F', '01_M']
+folders_train = ['01_F']
 root_train = '/data/aligned'
 
 x_train = []
 y_train = []
 
+start = time.time()
+print("getting embeddings...")
+
 process_folders(folders_train, root_train, x_train, y_train)
+
+end = time.time()
+print(end - start)
 
 pdb.set_trace()
 
