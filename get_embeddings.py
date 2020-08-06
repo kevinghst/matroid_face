@@ -74,7 +74,7 @@ for i in range(1,71):
 
 # Get face embeddings
 
-batch = 16
+batch = 10
 
 def process_folders_batch(root):
     x = []
@@ -117,7 +117,7 @@ def process_folders_batch(root):
                 counter = 0
                 imgs = None
 
-        if imgs:
+        if imgs is not None:
             imgs = preprocess_input(imgs)
             encodings = vgg_face(imgs)
             embeddings = np.squeeze(K.eval(encodings)).tolist()
