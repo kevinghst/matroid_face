@@ -1,3 +1,72 @@
+import numpy as np
+from keras.models import Model, Sequential
+from keras.layers import Input, Convolution2D, ZeroPadding2D, MaxPooling2D, Flatten, Dense, Dropout, Activation
+from keras.preprocessing.image import load_img, save_img, img_to_array
+from keras.applications.imagenet_utils import preprocess_input
+from keras.preprocessing import image
+
+if True:
+    model = Sequential()
+    model.add(ZeroPadding2D((1,1),input_shape=(224,224, 3)))
+    model.add(Convolution2D(64, (3, 3), name= 'conv1_1'))
+    model.add(Activation('relu', name='relu1_1'))
+    model.add(ZeroPadding2D((1,1)))
+    model.add(Convolution2D(64, (3, 3), name= 'conv1_2'))
+    model.add(Activation('relu', name='relu1_2'))
+    model.add(MaxPooling2D((2,2), strides=(2,2), name='pool1'))
+
+    model.add(ZeroPadding2D((1,1)))
+    model.add(Convolution2D(128, (3, 3), name= 'conv2_1'))
+    model.add(Activation('relu', name='relu2_1'))
+    model.add(ZeroPadding2D((1,1)))
+    model.add(Convolution2D(128, (3, 3), name= 'conv2_2'))
+    model.add(Activation('relu', name='relu2_2'))
+    model.add(MaxPooling2D((2,2), strides=(2,2), name='pool2'))
+
+    model.add(ZeroPadding2D((1,1)))
+    model.add(Convolution2D(256, (3, 3), name= 'conv3_1'))
+    model.add(Activation('relu', name='relu3_1'))
+    model.add(ZeroPadding2D((1,1)))
+    model.add(Convolution2D(256, (3, 3), name= 'conv3_2'))
+    model.add(Activation('relu', name='relu3_2'))
+    model.add(ZeroPadding2D((1,1)))
+    model.add(Convolution2D(256, (3, 3), name= 'conv3_3'))
+    model.add(Activation('relu', name='relu3_3'))
+    model.add(MaxPooling2D((2,2), strides=(2,2), name='pool3'))
+
+    model.add(ZeroPadding2D((1,1)))
+    model.add(Convolution2D(512, (3, 3), name= 'conv4_1'))
+    model.add(Activation('relu', name='relu4_1'))
+    model.add(ZeroPadding2D((1,1)))
+    model.add(Convolution2D(512, (3, 3), name= 'conv4_2'))
+    model.add(Activation('relu', name='relu4_2'))
+    model.add(ZeroPadding2D((1,1)))
+    model.add(Convolution2D(512, (3, 3), name= 'conv4_3'))
+    model.add(Activation('relu', name='relu4_3'))
+    model.add(MaxPooling2D((2,2), strides=(2,2), name='pool4'))
+
+    model.add(ZeroPadding2D((1,1)))
+    model.add(Convolution2D(512, (3, 3), name= 'conv5_1'))
+    model.add(Activation('relu', name='relu5_1'))
+    model.add(ZeroPadding2D((1,1)))
+    model.add(Convolution2D(512, (3, 3), name= 'conv5_2'))
+    model.add(Activation('relu', name='relu5_2'))
+    model.add(ZeroPadding2D((1,1)))
+    model.add(Convolution2D(512, (3, 3), name= 'conv5_3'))
+    model.add(Activation('relu', name='relu5_3'))
+    model.add(MaxPooling2D((2,2), strides=(2,2), name='pool5'))
+
+    model.add(Convolution2D(4096, (7, 7), name= 'fc6'))
+    model.add(Activation('relu', name='relu6'))
+    model.add(Dropout(0.5, name='dropout6'))
+    model.add(Convolution2D(4096, (1, 1), name= 'fc7'))
+    model.add(Activation('relu', name='relu7'))
+    model.add(Dropout(0.5, name='dropout7'))
+    model.add(Convolution2D(2622, (1, 1), name= 'fc8'))
+    model.add(Activation('relu'))
+    model.add(Flatten())
+    model.add(Activation('softmax', name= 'softmax'))
+
 from scipy.io import loadmat
 
 data = loadmat('vgg_face.mat', matlab_compatible=False, struct_as_record=False)
