@@ -24,20 +24,22 @@ classifier_model.add(BatchNormalization())
 classifier_model.add(Activation('tanh'))
 classifier_model.add(Dropout(0.2))
 classifier_model.add(Dense(1, activation='sigmoid'))
-#classifier_model.add(Dense(units=6,kernel_initializer='he_uniform'))
-#classifier_model.add(Activation('softmax'))
 classifier_model.compile(loss=tf.keras.losses.BinaryCrossentropy(),optimizer='nadam',metrics=['accuracy'])
 
 # Train model
-classifier_model.fit(x_train,y_train,epochs=10,validation_data=(x_test,y_test))
+classifier_model.fit(x_train,y_train,epochs=5,validation_data=(x_test,y_test))
 
-# Get confusion matrix
+# Report final accuracies
 predictions = classifier_model.predict(x_test)
-y_pred = (predictions > 0.5)
+y_pred = np.squeeze(predictions)
+y_pred = (y_pred > 0.5)
 
-pdb.set_trace()
+matrix = tf.math.confusion_matrix(y_pred, y_test)
 
-matrix = tf.math.confusion_matrix(y_test, y_pred)
+female_accuracy = matrix[0][0] / (matrix[0][0] + matrix[0][1])
+male_accuracy = matrix[1][1] / (matrix[1][0] + matrix[1][1])
+overall_accuracy = (matrix[0][0] + matrix[1][1]) / len(y_test)
 
-
-exit = "exit"
+print("Female accuracy: %s" % female_accuracy)
+print("Male accuracy: %s" % male_accuracy)
+print("Overall accuracy: %s" % overall_accuracy)
