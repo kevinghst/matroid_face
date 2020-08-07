@@ -27,7 +27,10 @@ classifier_model.add(Dense(1, activation='sigmoid'))
 classifier_model.compile(loss=tf.keras.losses.BinaryCrossentropy(),optimizer='nadam',metrics=['accuracy'])
 
 # Train model
-classifier_model.fit(x_train,y_train,epochs=5,validation_data=(x_test,y_test))
+classifier_model.fit(x_train,y_train,epochs=10,validation_data=(x_test,y_test))
+
+# Save model
+classifier_model.save('trained_classifier')
 
 # Report final accuracies
 predictions = classifier_model.predict(x_test)

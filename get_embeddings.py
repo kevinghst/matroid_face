@@ -99,24 +99,24 @@ def process_folders(root):
     return x, y
 
 
-#print("getting test embeddings...")
-#start = time.time()
+print("getting test embeddings...")
+start = time.time()
 
-#root_test = 'data/combined/valid'
-#x_test, y_test = process_folders(root_test)
+root_test = 'data/combined/valid'
+x_test, y_test = process_folders(root_test)
 
-#x_test=np.array(x_test)
-#y_test=np.array(y_test)
+x_test=np.array(x_test)
+y_test=np.array(y_test)
 
-#with open('x_test.npy', 'wb') as f:
-#    np.save(f, x_test)
+with open('x_test.npy', 'wb') as f:
+    np.save(f, x_test)
 
-#with open('y_test.npy', 'wb') as f:
-#    np.save(f, y_test)
+with open('y_test.npy', 'wb') as f:
+    np.save(f, y_test)
 
-#end = time.time()
-#print("test embeddings took:")
-#print(end - start)
+end = time.time()
+print("test embeddings took:")
+print(end - start)
 
 print("getting train embeddings...")
 start = time.time()
