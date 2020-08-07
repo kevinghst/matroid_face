@@ -5,10 +5,10 @@ from tensorflow.keras.models import Sequential,Model
 from tensorflow.keras.layers import Dense,Dropout,Softmax,Flatten,Activation,BatchNormalization
 
 # Load saved data
-x_train=np.load('train_data.npy')
-y_train=np.load('train_labels.npy')
-x_test=np.load('test_data.npy')
-y_test=np.load('test_labels.npy')
+x_train=np.load('x_train.npy')
+y_train=np.load('y_train.npy')
+x_test=np.load('x_test.npy')
+y_test=np.load('y_test.npy')
 
 # Softmax regressor to classify images based on encoding 
 classifier_model=Sequential()
