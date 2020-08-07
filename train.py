@@ -26,7 +26,7 @@ classifier_model.add(Dropout(0.2))
 classifier_model.add(Dense(1, activation='sigmoid'))
 #classifier_model.add(Dense(units=6,kernel_initializer='he_uniform'))
 #classifier_model.add(Activation('softmax'))
-classifier_model.compile(loss=tf.keras.losses.SparseCategoricalCrossentropy(),optimizer='nadam',metrics=['accuracy'])
+classifier_model.compile(loss=tf.keras.losses.BinaryCrossentropy(),optimizer='nadam',metrics=['accuracy'])
 
 # Train model
 classifier_model.fit(x_train,y_train,epochs=10,validation_data=(x_test,y_test))
