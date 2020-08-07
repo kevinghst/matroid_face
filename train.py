@@ -26,14 +26,15 @@ classifier_model.add(Activation('softmax'))
 classifier_model.compile(loss=tf.keras.losses.SparseCategoricalCrossentropy(),optimizer='nadam',metrics=['accuracy'])
 
 # Train model
-classifier_model.fit(x_train,y_train,epochs=10,validation_data=(x_test,y_test))
+classifier_model.fit(x_train,y_train,epochs=2,validation_data=(x_test,y_test))
 
 # Get confusion matrix
 predictions = classifier_model.predict(x_test)
 y_pred = (predictions > 0.5)
 
+pdb.set_trace()
+
 matrix = tf.math.confusion_matrix(y_test, y_pred)
 
-pdb.set_trace()
 
 exit = "exit"
