@@ -40,6 +40,8 @@ female_accuracy = matrix[0][0] / (matrix[0][0] + matrix[0][1])
 male_accuracy = matrix[1][1] / (matrix[1][0] + matrix[1][1])
 overall_accuracy = (matrix[0][0] + matrix[1][1]) / len(y_test)
 
+pdb.set_trace()
+
 print("Female accuracy: %s" % female_accuracy)
 print("Male accuracy: %s" % male_accuracy)
 print("Overall accuracy: %s" % overall_accuracy)
