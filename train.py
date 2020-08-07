@@ -3,6 +3,7 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.models import Sequential,Model
 from tensorflow.keras.layers import Dense,Dropout,Softmax,Flatten,Activation,BatchNormalization
+from tensorflow.math import confusion_matrix
 
 # Load saved data
 x_train=np.load('x_train.npy')
@@ -26,3 +27,13 @@ classifier_model.compile(loss=tf.keras.losses.SparseCategoricalCrossentropy(),op
 
 # Train model
 classifier_model.fit(x_train,y_train,epochs=10,validation_data=(x_test,y_test))
+
+# Get confusion matrix
+predictions = classifier_model.predict(x_test)
+y_pred = (predictions > 0.5)
+
+matrix = tf.math.confusion_matrix(y_test, y_pred)
+
+pdb.set_trace()
+
+exit = "exit"
