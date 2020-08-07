@@ -1,9 +1,9 @@
 import numpy as np
-from keras.models import Model, Sequential
-from keras.layers import Input, Convolution2D, ZeroPadding2D, MaxPooling2D, Flatten, Dense, Dropout, Activation
-from keras.preprocessing.image import load_img, save_img, img_to_array
-from keras.applications.imagenet_utils import preprocess_input
-from keras.preprocessing import image
+from tensorflow.keras.models import Model, Sequential
+from tensorflow.keras.layers import Input, Convolution2D, ZeroPadding2D, MaxPooling2D, Flatten, Dense, Dropout, Activation
+from tensorflow.keras.preprocessing.image import load_img, save_img, img_to_array
+from tensorflow.keras.applications.imagenet_utils import preprocess_input
+from tensorflow.keras.preprocessing import image
 
 if True:
     model = Sequential()
